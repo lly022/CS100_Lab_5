@@ -19,19 +19,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-       
-      #Cloning google test
-      - name: Cloning google test
-        run: git submodule add -f https://github.com/google/googletest.git
+        with:
+          submodules: recursive
 
-      # Runs Cmake file 
-      - name: Run Cmake
-        run: cmake .
-
-      # Runs make file
-      - name: Run Make
-        run: make
-
-      # Runs test executable  
-      - name: Run ./test
-        run: ./test
+      # Runs a set of commands using the runners shell
+      - name: Build and run tests
+        run: |
+          cmake .
+          make
+          ./test
